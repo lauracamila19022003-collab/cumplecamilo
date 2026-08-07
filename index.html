@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Cumpleaños</title>
+
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<style>
+
+
+body{
+margin:0;
+background:white;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+height:100vh;
+font-family:Arial;
+}
+
+h1{
+font-size:45px;
+color:white;
+text-shadow:2px 2px 5px black;
+}
+
+model-viewer{
+width:350px;
+height:450px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎉 Feliz Cumpleaños Camilo Cuatapi 🎂</h1>
+
+<model-viewer
+
+src="muneco.glb.glb"
+camera-controls
+auto-rotate
+shadow-intensity="1"
+exposure="1"
+style="width:500px;height:500px;background:white;">
+
+</model-viewer>
+<audio id="musica" loop>
+    <source src="feliz-cumpleanos.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="document.getElementById('musica').play()">
+🎵 Reproducir música
+</button>
+<script>
+
+window.onload=function(){
+
+const voz=new SpeechSynthesisUtterance(
+"Hola Camilo Cuatapi. Feliz cumpleaños. Espero que tengas un día maravilloso lleno de alegría, salud y muchas bendiciones."
+);
+
+voz.lang="es-CO";
+
+speechSynthesis.speak(voz);
+
+setInterval(function(){
+
+confetti({
+particleCount:150,
+spread:120,
+origin:{y:0.6}
+});
+
+},2500);
+
+}
+
+</script>
+
+</body>
+</html>
