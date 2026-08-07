@@ -1,36 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<title>Feliz Cumpleaños</title>
+<title>Feliz Cumpleaños Camilo</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
 <style>
 
-
 body{
 margin:0;
-background:white;
 overflow:hidden;
+background:white;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 height:100vh;
-font-family:Arial;
+font-family:Arial,sans-serif;
 }
 
 h1{
-font-size:45px;
+font-size:55px;
 color:white;
-text-shadow:2px 2px 5px black;
+text-shadow:4px 4px 8px black;
+margin-top:20px;
+margin-bottom:10px;
+z-index:10;
 }
 
 model-viewer{
-width:350px;
-height:450px;
+width:500px;
+height:500px;
+background:white;
+z-index:10;
+}
+
+#mensaje{
+
+font-size:28px;
+font-weight:bold;
+color:#ff4081;
+margin-top:15px;
+animation:latido 1s infinite;
+text-align:center;
+z-index:10;
+
+}
+
+@keyframes latido{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.08);}
+100%{transform:scale(1);}
+
+}
+
+button{
+
+margin-top:15px;
+padding:12px 25px;
+font-size:20px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+background:#7b2cbf;
+color:white;
+
+}
+
+.globo{
+
+position:fixed;
+bottom:-100px;
+animation:subir linear infinite;
+pointer-events:none;
+
+}
+
+@keyframes subir{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+100%{
+
+transform:translateY(-130vh);
+
+}
+
+}
+
+.estrella{
+
+position:fixed;
+animation:brillar 2s infinite;
+
+}
+
+@keyframes brillar{
+
+0%{opacity:.2;}
+
+50%{opacity:1;}
+
+100%{opacity:.2;}
+
 }
 
 </style>
@@ -44,45 +124,125 @@ height:450px;
 <model-viewer
 
 src="muneco.glb.glb"
+
 camera-controls
+
 auto-rotate
+
+autoplay
+
 shadow-intensity="1"
+
 exposure="1"
+
 style="width:500px;height:500px;background:white;">
 
 </model-viewer>
+
+<div id="mensaje">
+
+🎁 ¡Que Dios bendiga tu vida y que todos tus sueños se hagan realidad! 🎉
+
+</div>
+
 <audio id="musica" loop>
-    <source src="feliz-cumpleanos.mp3" type="audio/mpeg">
+
+<source src="feliz-cumpleanos.mp3" type="audio/mpeg">
+
 </audio>
 
-<button onclick="document.getElementById('musica').play()">
+<button onclick="iniciar()">
+
 🎵 Reproducir música
+
 </button>
+
 <script>
 
-window.onload=function(){
+function iniciar(){
+
+document.getElementById("musica").play();
 
 const voz=new SpeechSynthesisUtterance(
-"Hola Camilo Cuatapi. Feliz cumpleaños. Espero que tengas un día maravilloso lleno de alegría, salud y muchas bendiciones."
+
+"Hola Camilo Cuatapi. Feliz cumpleaños. Espero que tengas un día maravilloso lleno de alegría, salud, amor y muchas bendiciones. Que todos tus sueños se hagan realidad."
+
 );
 
 voz.lang="es-CO";
 
 speechSynthesis.speak(voz);
 
+voz.onend=function(){
+
+confetti({
+
+particleCount:500,
+
+spread:220,
+
+origin:{y:0.6}
+
+});
+
+}
+
+}
+
 setInterval(function(){
 
 confetti({
-particleCount:150,
+
+particleCount:100,
+
 spread:120,
-origin:{y:0.6}
+
+origin:{x:Math.random(),y:Math.random()-0.2}
+
 });
 
 },2500);
+
+for(let i=0;i<30;i++){
+
+let globo=document.createElement("div");
+
+globo.className="globo";
+
+globo.innerHTML=["🎈","🎉","✨","🎊","💖"][Math.floor(Math.random()*5)];
+
+globo.style.left=Math.random()*100+"vw";
+
+globo.style.animationDuration=(8+Math.random()*8)+"s";
+
+globo.style.fontSize=(25+Math.random()*35)+"px";
+
+document.body.appendChild(globo);
+
+}
+
+for(let i=0;i<40;i++){
+
+let estrella=document.createElement("div");
+
+estrella.className="estrella";
+
+estrella.innerHTML="✨";
+
+estrella.style.left=Math.random()*100+"vw";
+
+estrella.style.top=Math.random()*100+"vh";
+
+estrella.style.fontSize=(15+Math.random()*20)+"px";
+
+estrella.style.animationDelay=Math.random()*2+"s";
+
+document.body.appendChild(estrella);
 
 }
 
 </script>
 
 </body>
+
 </html>
