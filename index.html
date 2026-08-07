@@ -161,7 +161,9 @@ style="width:500px;height:500px;background:white;">
 
 function iniciar(){
 
-document.getElementById("musica").play();
+const musica = document.getElementById("musica");
+musica.volume = 0.15;   // Música al 15%
+musica.play();
 
 const voz=new SpeechSynthesisUtterance(
 
@@ -170,6 +172,9 @@ const voz=new SpeechSynthesisUtterance(
 );
 
 voz.lang="es-CO";
+voz.volume = 1;      // Volumen máximo de la voz
+voz.rate = 0.95;     // Habla un poquito más despacio
+voz.pitch = 1;       // Tono normal
 
 speechSynthesis.speak(voz);
 
